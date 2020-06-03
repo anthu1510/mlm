@@ -88,6 +88,8 @@ Route::post('newpassupdate', 'UserController@ResetPasswordUpdate');
         //Tree
         Route::get('tree/tree/{id}', 'TreeController@index');
         Route::get('tree/autotree/{id}', 'TreeController@AutoTree');
+        Route::get('tree/goldtree/{id}', 'TreeController@GoldTree');
+        Route::get('tree/silvertree/{id}', 'TreeController@SilverTree');
         Route::get('tree/list', 'NodeController@treelist');
         Route::get('nodetreeserverside', 'NodeController@NodeTreeServerSide');
         Route::get('settreevalues', 'NodeController@setTreeValues');  // for master setup..

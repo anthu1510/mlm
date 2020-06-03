@@ -518,6 +518,58 @@ from node
         return $data;
 
     }
+    public static function getSilverTree($id)
+    {
+        $root_data=self::BuidSilverTree($id);
+        $left_data=self::BuidSilverTree($root_data['left']->id);
+        $middle_data=self::BuidSilverTree($root_data['middle']->id);
+        $right_data=self::BuidSilverTree($root_data['right']->id);
+
+        $data=['root'=>$root_data['root'],
+            'left'=>$root_data['left'],
+            'middle'=>$root_data['middle'],
+            'right'=>$root_data['right'],
+            'leftl'=>$left_data['left'],
+            'leftm'=>$left_data['middle'],
+            'leftr'=>$left_data['right'],
+            'middlel'=>$middle_data['left'],
+            'middlem'=>$middle_data['middle'],
+            'middler'=>$middle_data['right'],
+            'rightl'=>$right_data['left'],
+            'rightm'=>$right_data['middle'],
+            'rightr'=>$right_data['right']
+
+        ];
+        return $data;
+
+    }
+    public static function getGoldTree($id)
+    {
+
+
+        $root_data=self::BuidGoldTree($id);
+        $left_data=self::BuidGoldTree($root_data['left']->id);
+        $middle_data=self::BuidGoldTree($root_data['middle']->id);
+        $right_data=self::BuidGoldTree($root_data['right']->id);
+
+        $data=['root'=>$root_data['root'],
+            'left'=>$root_data['left'],
+            'middle'=>$root_data['middle'],
+            'right'=>$root_data['right'],
+            'leftl'=>$left_data['left'],
+            'leftm'=>$left_data['middle'],
+            'leftr'=>$left_data['right'],
+            'middlel'=>$middle_data['left'],
+            'middlem'=>$middle_data['middle'],
+            'middler'=>$middle_data['right'],
+            'rightl'=>$right_data['left'],
+            'rightm'=>$right_data['middle'],
+            'rightr'=>$right_data['right']
+
+        ];
+        return $data;
+
+    }
 
     public static function BuidAutoTree($id)
     {
@@ -626,6 +678,220 @@ from node
         return $data;
 
     }
+    public static function BuidSilverTree($id)
+    {
+        $res = DB::table('silver_node')->select('id', 'name', 'coupon_code', 'distributor_id', 'l', 'm', 'r')->where('id', $id)->first();
+
+        if ($res)
+        {
+            $root = new \stdClass();
+            $root->id = $res->id;
+            $root->name = $res->name;
+            $root->distributor_id = $res->distributor_id;
+            $root->coupon_code = $res->coupon_code;
+
+
+            $resl = DB::table('silver_node')->select('id', 'name', 'coupon_code', 'distributor_id', 'l', 'm', 'r')->where('id', (($id * 3) - 1))->first();
+
+            if ($resl) {
+                $left = new \stdClass();
+                $left->id = $resl->id;
+                $left->name = $resl->name;
+                $left->distributor_id = $resl->distributor_id;
+                $left->coupon_code = $resl->coupon_code;
+            } else {
+                $left = new \stdClass();
+                $left->id = "#";
+                $left->name = "Empty";
+                $left->distributor_id = "";
+                $left->coupon_code = "";
+            }
+
+
+
+            $resm = DB::table('silver_node')->select('id', 'name', 'coupon_code', 'distributor_id', 'l', 'm', 'r')->where('id', (($id * 3)))->first();
+
+            if ($resm) {
+                $middle = new \stdClass();
+                $middle->id = $resm->id;
+                $middle->name = $resm->name;
+                $middle->distributor_id = $resm->distributor_id;
+                $middle->coupon_code = $resm->coupon_code;
+            } else {
+                $middle = new \stdClass();
+                $middle->id = "#";
+                $middle->name = "Empty";
+                $middle->distributor_id = "";
+                $middle->coupon_code = "";
+            }
+
+
+
+
+            $resr = DB::table('silver_node')->select('id', 'name', 'coupon_code', 'distributor_id', 'l', 'm', 'r')->where('id', (($id * 3) + 1))->first();
+
+
+            if ($resr) {
+                $right = new \stdClass();
+                $right->id = $resr->id;
+                $right->name = $resr->name;
+                $right->distributor_id = $resr->distributor_id;
+                $right->coupon_code = $resr->coupon_code;
+            } else {
+                $right = new \stdClass();
+                $right->id = "#";
+                $right->name = "Empty";
+                $right->distributor_id = "";
+                $right->coupon_code = "";
+            }
+
+
+
+        }
+        else {
+            $root = new \stdClass();
+            $root->id = '#';
+            $root->name = 'Empty';
+            $root->distributor_id = '';
+            $root->coupon_code = '';
+
+            $left = new \stdClass();
+            $left->id = "#";
+            $left->name = "Empty";
+            $left->distributor_id = "";
+            $left->coupon_code = "";
+
+            $middle = new \stdClass();
+            $middle->id = "#";
+            $middle->name = "Empty";
+            $middle->distributor_id = "";
+            $middle->coupon_code = "";
+
+            $right = new \stdClass();
+            $right->id = "#";
+            $right->name = "Empty";
+            $right->distributor_id = "";
+            $right->coupon_code = "";
+        }
+
+
+        $data=[
+            'root'=>$root,
+            'left'=>$left,
+            'middle'=>$middle,
+            'right'=>$right
+        ];
+
+        return $data;
+
+    }
+    public static function BuidGoldTree($id)
+    {
+        $res = DB::table('gold_node')->select('id', 'name', 'coupon_code', 'distributor_id', 'l', 'm', 'r')->where('id', $id)->first();
+
+        if ($res)
+        {
+            $root = new \stdClass();
+            $root->id = $res->id;
+            $root->name = $res->name;
+            $root->distributor_id = $res->distributor_id;
+            $root->coupon_code = $res->coupon_code;
+
+
+            $resl = DB::table('gold_node')->select('id', 'name', 'coupon_code', 'distributor_id', 'l', 'm', 'r')->where('id', (($id * 3) - 1))->first();
+
+            if ($resl) {
+                $left = new \stdClass();
+                $left->id = $resl->id;
+                $left->name = $resl->name;
+                $left->distributor_id = $resl->distributor_id;
+                $left->coupon_code = $resl->coupon_code;
+            } else {
+                $left = new \stdClass();
+                $left->id = "#";
+                $left->name = "Empty";
+                $left->distributor_id = "";
+                $left->coupon_code = "";
+            }
+
+
+
+            $resm = DB::table('gold_node')->select('id', 'name', 'coupon_code', 'distributor_id', 'l', 'm', 'r')->where('id', (($id * 3)))->first();
+
+            if ($resm) {
+                $middle = new \stdClass();
+                $middle->id = $resm->id;
+                $middle->name = $resm->name;
+                $middle->distributor_id = $resm->distributor_id;
+                $middle->coupon_code = $resm->coupon_code;
+            } else {
+                $middle = new \stdClass();
+                $middle->id = "#";
+                $middle->name = "Empty";
+                $middle->distributor_id = "";
+                $middle->coupon_code = "";
+            }
+
+
+
+
+            $resr = DB::table('gold_node')->select('id', 'name', 'coupon_code', 'distributor_id', 'l', 'm', 'r')->where('id', (($id * 3) + 1))->first();
+
+
+            if ($resr) {
+                $right = new \stdClass();
+                $right->id = $resr->id;
+                $right->name = $resr->name;
+                $right->distributor_id = $resr->distributor_id;
+                $right->coupon_code = $resr->coupon_code;
+            } else {
+                $right = new \stdClass();
+                $right->id = "#";
+                $right->name = "Empty";
+                $right->distributor_id = "";
+                $right->coupon_code = "";
+            }
+
+
+
+        }
+        else {
+            $root = new \stdClass();
+            $root->id = '#';
+            $root->name = 'Empty';
+            $root->distributor_id = '';
+            $root->coupon_code = '';
+
+            $left = new \stdClass();
+            $left->id = "#";
+            $left->name = "Empty";
+            $left->distributor_id = "";
+            $left->coupon_code = "";
+
+            $middle = new \stdClass();
+            $middle->id = "#";
+            $middle->name = "Empty";
+            $middle->distributor_id = "";
+            $middle->coupon_code = "";
+
+            $right = new \stdClass();
+            $right->id = "#";
+            $right->name = "Empty";
+            $right->distributor_id = "";
+            $right->coupon_code = "";
+        }
+
+
+        $data=[
+            'root'=>$root,
+            'left'=>$left,
+            'middle'=>$middle,
+            'right'=>$right
+        ];
+
+        return $data;
+
+    }
 
     public static function AsignAutoNodeParrent($id)
     {
@@ -643,6 +909,54 @@ from node
 
         ];
         $res = DB::table('auto_node')->where('id',$id )->update($data);
+
+        if ($res == 1) {
+            return 1;
+
+        } else {
+            return 0;
+        }
+    }
+    public static function AsignSilverNodeParrent($id)
+    {
+
+        $l=$id*3-1;
+        $m=$id*3;
+        $r=$id*3+1;
+        $p=round($id/3);
+
+        $data = [
+            'p'=>$p,
+            'l'=>$l,
+            'm'=>$m,
+            'r'=>$r
+
+        ];
+        $res = DB::table('silver_node')->where('id',$id )->update($data);
+
+        if ($res == 1) {
+            return 1;
+
+        } else {
+            return 0;
+        }
+    }
+    public static function AsignGoldNodeParrent($id)
+    {
+
+        $l=$id*3-1;
+        $m=$id*3;
+        $r=$id*3+1;
+        $p=round($id/3);
+
+        $data = [
+            'p'=>$p,
+            'l'=>$l,
+            'm'=>$m,
+            'r'=>$r
+
+        ];
+        $res = DB::table('gold_node')->where('id',$id )->update($data);
 
         if ($res == 1) {
             return 1;
@@ -803,6 +1117,8 @@ from node
             unset($fulldata['id'],$fulldata['cdate']);   // to remove unwanted key fields like id and cdate
             $id=DB::table('silver_node')->insertGetId($fulldata) ;
 
+            self::AsignSilverNodeParrent($id);
+
             $data=[
                 'node_id'=>$id,
                 'node_code'=>$node_code,
@@ -854,7 +1170,7 @@ from node
             $fulldata=json_decode(json_encode($res),true); // convert object to array
             unset($fulldata['id'],$fulldata['cdate']);   // to remove unwanted key fields like id and cdate
             $id=DB::table('gold_node')->insertGetId($fulldata) ;
-
+            self::AsignGoldNodeParrent($id);
             $data=[
                 'node_id'=>$id,
                 'node_code'=>$node_code,

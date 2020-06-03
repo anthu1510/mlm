@@ -27,4 +27,23 @@ class TreeController extends Controller
         return view('dashboard.tree.auto_tree')->with($data);
     }
 
+    public function GoldTree(){
+        $id=\request()->id;
+        $data=   Node::getGoldTree($id);
+
+        /*     echo "<pre>";
+             print_r($data);*/
+        return view('dashboard.tree.gold_tree')->with($data);
+    }
+
+    public function SilverTree(){
+        $id=\request()->id;
+        $data=   Node::getSilverTree($id);
+
+        /*     echo "<pre>";
+             print_r($data);*/
+        return view('dashboard.tree.silver_tree')->with($data);
+    }
+
+
 }

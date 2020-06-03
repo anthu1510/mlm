@@ -88,6 +88,16 @@
                                 <a href="{{ URL::to('/dashboard/tree/autotree/1') }}">
                                     <i class="fab fa-autoprefixer"></i>Auto</a>
                             </li>
+                            <li class="{{ (Request::segment(2) == 'tree' && Request::segment(3) == 'silvertree') ? 'active' : '' }}">
+                                <a href="{{ URL::to('/dashboard/tree/silvertree/1') }}">
+                                    <i class="fab fa-staylinked"></i>Silver</a>
+                            </li>
+
+                            <li class="{{ (Request::segment(2) == 'tree' && Request::segment(3) == 'goldtree') ? 'active' : '' }}">
+                                <a href="{{ URL::to('/dashboard/tree/goldtree/1') }}">
+                                    <i class="fab fa-goodreads"></i>Gold</a>
+                            </li>
+
                             <li class="{{ (Request::segment(2) == 'tree' && Request::segment(3) == 'list') ? 'active' : '' }}">
                                 <a href="{{ URL::to('/dashboard/tree/list') }}">
                                     <i class="fa fa-list"></i>List</a>
