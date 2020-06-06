@@ -85,6 +85,16 @@ Route::post('newpassupdate', 'UserController@ResetPasswordUpdate');
         Route::get('comissionserverside/{id}', 'NodeController@ComissionServerSide');
         Route::get('comission/couponcomissionlist', 'NodeController@couponcomissionlist');
         Route::get('couponcomissionserverside', 'NodeController@CouponComissionServerSide');
+        //payout
+        Route::get('payout', 'PayoutController@Payout');
+        Route::get('payout/datebetween', 'PayoutController@DateBetween');
+        Route::post('payout/datebetweenview', 'PayoutController@DateBetweenView');
+        Route::get('payout/payoutgenerate', 'PayoutController@PayoutGenerate');
+        Route::post('payout/makepayout', 'PayoutController@MakePayout');
+        Route::post('payout/payoutgenerateview', 'PayoutController@PayoutGenerateView');
+        Route::get('payoutserverside', 'PayoutController@PayoutServerSide');
+        Route::get('payouteligbleserverside', 'PayoutController@PayoutEligibleServerSide');
+        Route::get('payoutgenerateserverside', 'PayoutController@PayoutGenerateServerSide');
         //Tree
         Route::get('tree/tree/{id}', 'TreeController@index');
         Route::get('tree/autotree/{id}', 'TreeController@AutoTree');

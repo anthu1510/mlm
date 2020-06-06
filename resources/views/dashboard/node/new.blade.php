@@ -80,7 +80,7 @@
                         <div class="form-group">
                             <label for="u_name">D.O.B</label>
 
-                            <input type="date" name="dob" id="dob" class="form-control"
+                            <input type="text" name="dob" id="dob" class="form-control datetimepicker"
                                    value="" placeholder="Select D.O.B">
                         </div>
 
@@ -266,17 +266,130 @@
 
 @section('datatables-scripts')
     <link rel="stylesheet" href="{{ asset('assets/vendor/validation-engine-master/css/validationEngine.jquery.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendor/datetimepicker/build/jquery.datetimepicker.min.css') }}">
 
     <script
         src="{{ asset('assets/vendor/validation-engine-master/js/languages/jquery.validationEngine-en.js') }}"></script>
     <script src="{{ asset('assets/vendor/validation-engine-master/js/jquery.validationEngine.js') }}"></script>
+    <script src="{{ asset('assets/vendor/datetimepicker/build/jquery.datetimepicker.full.min.js') }}"></script>
     <script>
         $(document).ready(function () {
             $("#newnode").validationEngine({promptPosition: "topLeft:0"});
 
-
+            $('.datetimepicker').datetimepicker({
+                timepicker:false,
+                format:'Y-m-d'
+            });
         });
 
+
+        $("#sponserid").bind("keyup  paste", function(e) {
+            /* $( "#sponserid" ).trigger( "keyup" );*/
+
+            var val = $(this).val();
+
+            $('input[name="tree_position"]').prop('checked', false);
+            var url = "{{ URL::to('dashboard/node/getsponser') }}";
+            $.get(url, {value: val, "_token": "{{ csrf_token() }}"}, function (data) {
+
+
+                    if (data === 'error') {
+                        $('#sponsername').val('');
+                        $('#sponsermobile').val('');
+                        $('#sponseraddress').val('');
+                        $('#left-lab, #middle-lab, #right-lab').css('display', 'none');
+
+                    } else {
+                        var json = JSON.parse(data);
+                        /*console.log(json);*/
+                        $('#sponsername').val(json.name);
+                        $('#sponsermobile').val(json.mobile);
+                        $('#sponseraddress').val(json.address);
+                        $('#spon_id').val(json.id);
+
+                        setInterval(function () {
+                            $('#sponsername').css('color', 'transparent');
+                            setTimeout(function () {
+                                $('#sponsername').css('color', 'red');
+                            }, 500);
+                        }, 1000);
+                        $('#left-lab, #middle-lab, #right-lab').css('display', 'none');
+
+
+
+                        if (json.l == '' ||json.l == 0||json.l == null  ) {
+                            $('#left-lab').css('display', 'inline');
+                            //$('#left-lab').enabled();
+                        }
+                        if (json.r == '' || json.r == 0 || json.r == null) {
+                            $('#right-lab').css('display', 'inline');
+
+                        }
+                        if (json.m == '' || json.m == 0 || json.m == null) {
+
+                            $('#middle-lab').css('display', 'inline');
+                        }
+                    }
+                }
+            );
+
+
+
+
+        })
+
+
+        /*$('#sponserid').change(function () {
+           /!* $( "#sponserid" ).trigger( "keyup" );*!/
+
+            var val = $(this).val();
+
+            $('input[name="tree_position"]').prop('checked', false);
+            var url = "{{ URL::to('dashboard/node/getsponser') }}";
+            $.get(url, {value: val, "_token": "{{ csrf_token() }}"}, function (data) {
+
+
+                    if (data === 'error') {
+                        $('#sponsername').val('');
+                        $('#sponsermobile').val('');
+                        $('#sponseraddress').val('');
+                        $('#left-lab, #middle-lab, #right-lab').css('display', 'none');
+
+                    } else {
+                        var json = JSON.parse(data);
+                        console.log(json);
+                        $('#sponsername').val(json.name);
+                        $('#sponsermobile').val(json.mobile);
+                        $('#sponseraddress').val(json.address);
+                        $('#spon_id').val(json.id);
+
+                        setInterval(function () {
+                            $('#sponsername').css('color', 'transparent');
+                            setTimeout(function () {
+                                $('#sponsername').css('color', 'red');
+                            }, 500);
+                        }, 1000);
+
+
+                        if (json.l == '' ||json.l == 0||json.l == null  ) {
+                            $('#left-lab').css('display', 'inline');
+                            //$('#left-lab').enabled();
+                        }
+                        if (json.r == '' || json.r == 0 || json.r == null) {
+                            $('#right-lab').css('display', 'inline');
+
+                        }
+                        if (json.m == '' || json.m == 0 || json.m == null) {
+
+                            $('#middle-lab').css('display', 'inline');
+                        }
+                    }
+                }
+            );
+
+
+
+        });
 
         $('#sponserid').keyup(function () {
               var val = $(this).val();
@@ -324,7 +437,7 @@
                 }
             );
 
-        });
+        });*/
     </script>
 @endsection
 

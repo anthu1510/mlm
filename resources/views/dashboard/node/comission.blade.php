@@ -18,6 +18,7 @@
                         <th>Coupon</th>
                         <th>Date</th>
                         <th>Amount</th>
+                        <th>P-Date</th>
                         <th>Status</th>
 
 
@@ -68,6 +69,7 @@
                     { data: 'coupon' },
                     { data: 'cdate' },
                     { data: 'amount' },
+                    { data: 'payout_date' },
                     { data: 'status' },
 
 

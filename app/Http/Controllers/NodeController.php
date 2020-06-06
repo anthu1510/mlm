@@ -156,6 +156,7 @@ class NodeController extends Controller
     }
     public function comissionlist()
     {
+         \request()->session()->forget("generate_payout");  // call a common function using session so we unset this date field
         return view('dashboard.node.comission_list');
     }
 
@@ -167,6 +168,7 @@ class NodeController extends Controller
     public function comission()
     {
         $id=\request()->id;
+
         return view('dashboard.node.comission')->with('id',$id);
     }
 
@@ -187,13 +189,47 @@ class NodeController extends Controller
 
     public function ComissionServerSide($node_id)
     {
-        $res = DB::select(DB::raw("select t.coupon,t.amount,t.cdate,n.name,t.status, n.distributor_id,n.id from transaction t join node n on( t.coupon=n.coupon_code) where t.node_id=$node_id"));
+        $ses=\request()->session()->get('generate_payout');
+        if(isset($ses))
+        {
+            $from_date=$ses['from_date'];
+            $to_date=$ses['to_date'];
+
+            $wheresess=" AND t.cdate BETWEEN '$from_date' AND DATE_ADD('$to_date', INTERVAL 1 DAY)";
+
+        }
+        else
+        {
+            $wheresess="";
+        }
+
+
+        $res = DB::select(DB::raw("SELECT t.coupon,
+                                           t.amount,
+                                           DATE_FORMAT(t.cdate, '%d-%m-%Y') AS 'cdate',
+                                           payout_date,
+                                           n.name,
+                                           t.status,
+                                           n.distributor_id,
+                                           n.id
+                                    FROM transaction t
+                                             JOIN node n ON (t.node_id = n.id)
+                                    WHERE t.node_id = $node_id".$wheresess));
         return datatables()->of($res)->toJson();
     }
 
     public function CouponComissionServerSide()
     {
-        $res = DB::select(DB::raw("select t.node_id,t.node_code,t.node_name,t.coupon, n.name,n.distributor_id, t.amount,DATE_FORMAT(t.cdate,'%d-%m-%Y' ) as 'cdate'  from transaction t join node n on(t.coupon=n.coupon_code)"));
+        $res = DB::select(DB::raw("SELECT t.node_id,
+                                           t.node_code,
+                                           t.node_name,
+                                           t.coupon,
+                                           n.name,
+                                           n.distributor_id,
+                                           t.amount,
+                                           DATE_FORMAT(t.cdate, '%d-%m-%Y') AS 'cdate'
+                                    FROM transaction t
+                                             JOIN node n ON (t.node_id = n.id)"));
         return datatables()->of($res)->toJson();
     }
 

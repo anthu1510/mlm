@@ -129,6 +129,35 @@
                         </ul>
                     </li>
 
+                    <li class="has-sub">
+                        <a class="js-arrow open" href="#">
+                            <i class="fas fa-rupee-sign"></i>Payout</a>
+                        <ul class="list-unstyled navbar__sub-list js-sub-list" style="display: {{ Request::segment(2) == 'payout' ? 'block' : 'none' }};">
+                            <li class="{{ (Request::segment(2) == 'payout' && Request::segment(3)=='') ? 'active' : '' }}">
+                                <a href="{{ URL::to('/dashboard/payout') }}">
+                                    Transaction</a>
+                            </li>
+                            <li class="{{ (Request::segment(2) == 'payout' && (Request::segment(3) == 'generate' ||Request::segment(3) == 'generatepayout')) ? 'active' : '' }}">
+                                <a href="{{ URL::to('/dashboard/payout/datebetween') }}">
+                                    Date Between</a>
+                            </li>
+                            <li class="{{ (Request::segment(2) == 'payout' && (Request::segment(3) == 'payoutgenerate' ||Request::segment(3) == 'payoutgenerateview')) ? 'active' : '' }}">
+                                <a href="{{ URL::to('/dashboard/payout/payoutgenerate') }}">
+                                    Generate</a>
+                            </li>
+
+
+
+
+
+                        </ul>
+                    </li>
+
+
+
+
+
+
                 </ul>
             </nav>
         </div>
