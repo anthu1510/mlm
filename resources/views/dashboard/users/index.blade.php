@@ -33,10 +33,6 @@
 @section('model-content')
     @include('dashboard.users.new_users')
 @endsection
-@section('model-content')
-    @include('dashboard.users.new_users')
-@endsection
-
 
 @section('datatables-scripts')
     <link rel="stylesheet" href="{{ asset('assets/vendor/validation-engine-master/css/validationEngine.jquery.css') }}">
