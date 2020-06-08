@@ -56,6 +56,11 @@
             <!-- END DATA TABLE -->
         </div>
     </div>
+
+@endsection
+
+@section('model-content')
+    @include('dashboard.coupon.modal')
 @endsection
 
 @section('datatables-scripts')
@@ -263,4 +268,4 @@
     </script>
 @endsection
 
-@include('dashboard.coupon.modal')
+

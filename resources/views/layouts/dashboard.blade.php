@@ -145,6 +145,10 @@
                                 <a href="{{ URL::to('/dashboard/payout/payoutgenerate') }}">
                                     Generate</a>
                             </li>
+                            <li class="{{ (Request::segment(2) == 'payout' && (Request::segment(3) == 'payoutlist')) ? 'active' : '' }}">
+                                <a href="{{ URL::to('/dashboard/payout/payoutlist') }}">
+                                    List</a>
+                            </li>
 
 
 

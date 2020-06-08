@@ -45,6 +45,11 @@
             <!-- END DATA TABLE -->
         </div>
     </div>
+
+@endsection
+
+@section('model-content')
+    @include('dashboard.node.modal')
 @endsection
 
 @section('datatables-scripts')
@@ -277,4 +282,4 @@
     </script>
 @endsection
 
-@include('dashboard.node.modal')
+

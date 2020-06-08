@@ -92,9 +92,15 @@ Route::post('newpassupdate', 'UserController@ResetPasswordUpdate');
         Route::get('payout/payoutgenerate', 'PayoutController@PayoutGenerate');
         Route::post('payout/makepayout', 'PayoutController@MakePayout');
         Route::post('payout/payoutgenerateview', 'PayoutController@PayoutGenerateView');
+        Route::get('payout/payoutlist', 'PayoutController@PayoutList');
+        Route::post('payout/payoutedit', 'PayoutController@payoutEdit');
+        Route::post('payout/updatesave', 'PayoutController@updateSave');
+
         Route::get('payoutserverside', 'PayoutController@PayoutServerSide');
         Route::get('payouteligbleserverside', 'PayoutController@PayoutEligibleServerSide');
         Route::get('payoutgenerateserverside', 'PayoutController@PayoutGenerateServerSide');
+        Route::get('payoutlistserverside', 'PayoutController@PayoutListServerSide');
+
         //Tree
         Route::get('tree/tree/{id}', 'TreeController@index');
         Route::get('tree/autotree/{id}', 'TreeController@AutoTree');

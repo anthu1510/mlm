@@ -12,7 +12,7 @@
                         @csrf
                         <div class="row">
 
-                            <div class="col-lg-3 col-md-3">
+                            <div class="col-lg-2 col-md-2">
                                 <div class="form-group">
                                     <label for="title">To Date</label>
                                     <input type="text" autocomplete="off" class="form-control validate[required] datetimepicker" name="to_date" id="to_date" placeholder="Select the to Date">
@@ -21,11 +21,16 @@
 
                             <div class="col-lg-3 col-md-3">
                                 <div class="form-group">
-                                    <label for="title">Minimum Payout Amount</label>
+                                    <label for="amount">Minimum Payout Amount</label>
                                     <input type="text" autocomplete="off" class="form-control validate[required] " name="amount" id="amount" placeholder="Please enter Amount " value="500">
                                 </div>
                             </div>
-
+                            <div class="col-lg-2 col-md-2">
+                                <div class="form-group">
+                                    <label for="comments">Comments</label>
+                                    <input type="text" autocomplete="off" id="comments" class="form-control  " name="comments"  placeholder="Comments" >
+                                </div>
+                            </div>
 
 
 
@@ -93,6 +98,7 @@
             @if(isset($generate))
             $("#amount").val("{{$generate['amount']}}");
             $("#to_date").val("{{$generate['to_date']}}");
+            $("#comments").val("{{$generate['comments']}}");
             @endif
 
             $("#validateForm").validationEngine();
@@ -147,7 +153,8 @@
 $("#btn-generate").click(function () {
 var to_date=$("#to_date").val();
 var amount=$("#amount").val();
-$.post("{{ URL::to('dashboard/payout/makepayout/')}}", {amount:amount,todate:to_date,"_token": "{{ csrf_token() }}"},function (data) {
+var comments=$("#comments").val();
+$.post("{{ URL::to('dashboard/payout/makepayout/')}}", {amount:amount,todate:to_date,comments:comments,"_token": "{{ csrf_token() }}"},function (data) {
 console.log(data);
 })
 })

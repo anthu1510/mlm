@@ -38,11 +38,13 @@
             <!-- END DATA TABLE -->
         </div>
     </div>
+
+    @include('dashboard.node.modal')
 @endsection
 
 @section('datatables-scripts')
     <link rel="stylesheet" href="{{ asset('assets/vendor/validation-engine-master/css/validationEngine.jquery.css') }}">
-    @include('dashboard.users.new_users')
+    {{--@include('dashboard.users.new_users')--}}
     <script src="{{ asset('assets/vendor/validation-engine-master/js/languages/jquery.validationEngine-en.js') }}"></script>
     <script src="{{ asset('assets/vendor/validation-engine-master/js/jquery.validationEngine.js') }}"></script>
     <script>
@@ -249,4 +251,4 @@
     </script>
 @endsection
 
-@include('dashboard.node.modal')
+

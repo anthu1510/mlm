@@ -165,16 +165,6 @@ The markup will be simple nested lists
     <script
         src="{{ asset('assets/vendor/validation-engine-master/js/languages/jquery.validationEngine-en.js') }}"></script>
     <script src="{{ asset('assets/vendor/validation-engine-master/js/jquery.validationEngine.js') }}"></script>
-    <script>
-        $(document).ready(function () {
-            //$("#newnode").validationEngine({promptPosition: "topLeft:0"});
-
-
-        });
-
-
-;
-    </script>
 @endsection
 
 

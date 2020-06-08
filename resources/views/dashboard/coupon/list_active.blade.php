@@ -58,6 +58,10 @@
     </div>
 @endsection
 
+@section('model-content')
+    @include('dashboard.coupon.modal')
+@endsection
+
 @section('datatables-scripts')
     <link rel="stylesheet" href="{{ asset('assets/vendor/validation-engine-master/css/validationEngine.jquery.css') }}">
     @include('dashboard.users.new_users')
@@ -263,4 +267,4 @@
     </script>
 @endsection
 
-@include('dashboard.coupon.modal')
+
