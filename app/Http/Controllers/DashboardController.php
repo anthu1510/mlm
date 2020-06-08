@@ -126,7 +126,7 @@ class DashboardController extends Controller
     public function EditProfile()
     {
         $id = request()->session()->get('loggedin');
-        $res = DB::table('users')->where('id',$id)->first();
+        $res = DB::table('users')->where('user_id',$id)->first();
         return view('dashboard.profile.profile_edit')->with('getuser', $res);
     }
 
@@ -135,12 +135,12 @@ class DashboardController extends Controller
         $req = request()->all();
 
         $data = array(
-            'name' => $req['u_name_edit'],
-            'email' => $req['u_email_edit'],
+            'name' => $req['u_name'],
+            'email' => $req['u_email'],
             'updated_at' => Carbon::now()
         );
 
-        $res = DB::table('users')->where('id', $req['u_id'])->update($data);
+        $res = DB::table('users')->where('user_id', $req['u_id'])->update($data);
 
         if($res == 1){
             $message = 'message|User Updated Successfull...';
@@ -162,10 +162,10 @@ class DashboardController extends Controller
         $id = request()->session()->get('loggedin');
         $req = request()->all();
 
-        $rows = DB::table('users')->where(['id' => $id, 'password' => md5($req['old_pass'])])->count();
+        $rows = DB::table('users')->where(['user_id' => $id, 'password' => md5($req['old_pass'])])->count();
 
         if ($rows == 1) {
-            $res = DB::table('users')->where('id', $id)->update([ 'password' => md5($req['con_pass'])]);
+            $res = DB::table('users')->where('user_id', $id)->update([ 'password' => md5($req['con_pass'])]);
 
             if ($res == 1) {
                 return Redirect::back()->with('message', 'message|Password Updated...');

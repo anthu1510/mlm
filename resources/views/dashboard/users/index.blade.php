@@ -30,10 +30,14 @@
         </div>
     </div>
 @endsection
+@section('model-content')
+    @include('dashboard.users.new_users')
+@endsection
+
 
 @section('datatables-scripts')
     <link rel="stylesheet" href="{{ asset('assets/vendor/validation-engine-master/css/validationEngine.jquery.css') }}">
-    @include('dashboard.users.new_users')
+
     <script src="{{ asset('assets/vendor/validation-engine-master/js/languages/jquery.validationEngine-en.js') }}"></script>
     <script src="{{ asset('assets/vendor/validation-engine-master/js/jquery.validationEngine.js') }}"></script>
     <script>
@@ -62,7 +66,8 @@
 
             $('#userstbl tbody').on( 'click', '#btnedit', function () {
                 var data = table.row($(this).parents('tr')).data();
-                Edit(data.id);
+
+                Edit(data.user_id);
             } );
 
             $('#userstbl tbody').on( 'click', '#btndelete', function () {
@@ -78,8 +83,8 @@
                 data: {id: id, "_token": "{{ csrf_token() }}"},
                 success: function (data) {
                     var json = $.parseJSON(data);
-
-                        $('#uid').val(json.id);
+console.log(json);
+                        $('#uid').val(json.user_id);
                         $('#name_edit').val(json.name);
                         $('#email_edit').val(json.email);
 

@@ -200,17 +200,15 @@ class UserController extends Controller
     {
         $req = \request()->all();
         $id = $req['uid'];
-        $pass = md5($req['pass']);
-        $rs = DB::table('users')->where(['user_id' => $id, 'password' => $pass ]);
 
         $data = array(
-            'name' => $req['name'],
-            'email' => $req['email'],
+            'name' => $req['name_edit'],
+            'email' => $req['email_edit'],
             'updated_at' => Carbon::now()
         );
 
-        if(empty($rs)){
-            $data['password'] = $pass;
+        if(isset($req['pass_edit'])){
+            $data['password'] = md5($req['pass_edit']);
         }
 
         $res = DB::table('users')->where('user_id', $id)->update($data);

@@ -14,7 +14,7 @@
                         @csrf
                         <div class="form-group">
                             <label for="u_name">Name</label>
-                            <input type="text" name="u_id" id="u_id">
+                            <input type="hidden" name="u_id" id="u_id" value="{{ $getuser->user_id }}">
                             <input type="text" name="u_name" id="u_name" class="form-control"
                                    value="{{ $getuser->name }}" placeholder="Enter Name">
                         </div>
