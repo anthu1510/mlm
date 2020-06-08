@@ -33,6 +33,9 @@
 @section('model-content')
     @include('dashboard.users.new_users')
 @endsection
+@section('model-content')
+    @include('dashboard.users.new_users')
+@endsection
 
 
 @section('datatables-scripts')
