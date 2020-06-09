@@ -30,6 +30,7 @@
         </div>
     </div>
 @endsection
+
 @section('model-content')
     @include('dashboard.users.new_users')
 @endsection
